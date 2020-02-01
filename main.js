@@ -33,6 +33,10 @@
     todos.push(todo);
     // idを振る
     todos.forEach((todo, index) => todo.id = index + 1);
+    deleteBtn.addEventListener('click', () => {
+      const index = todos.indexOf(todo);
+      deleteTodo(index);
+    })
     // ラジオボタンの状態と状態切り替えボタンが一致するtodoを表示
     for(let i = 0; i < radioFormSection.children.length; i++) {
       if(radioFormSection.children[i].checked === true) {
@@ -91,6 +95,17 @@
     if(radioBtnState === 'comp') {
       const filterTodos = todos.filter((todo) => todo.stateBtn.textContent === '完了');
       showTodos(filterTodos);
+    };
+  };
+  //: todoを削除する
+  const deleteTodo = (index) => {
+    todos.splice(index, 1);
+    todos.forEach((todo, index) => todo.id = index + 1);
+    // ラジオボタンの状態と状態切り替えボタンが一致するtodoを表示
+    for(let i = 0; i < radioFormSection.children.length; i++) {
+      if(radioFormSection.children[i].checked === true) {
+        changeTodoDisplay(radioFormSection.children[i].value);
+      };
     };
   };
 }());
