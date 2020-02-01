@@ -14,6 +14,9 @@
     const stateBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
     stateBtn.textContent = '作業中';
+    stateBtn.addEventListener('click', () => {
+      switchState(stateBtn);
+    })
     deleteBtn.textContent = '削除';
     const todo = {
       id: '',
@@ -50,5 +53,13 @@
       remove.appendChild(todo.deleteBtn);
     });
     console.log(todos);
-  }
+  };
+  // 状態ボタン「作業中⇄完了」の切り替え
+  const switchState = (stateBtn) => {
+    if(stateBtn.textContent === '作業中') {
+      stateBtn.textContent = '完了';
+    } else {
+      stateBtn.textContent = '作業中';
+    };
+  };
 }());
