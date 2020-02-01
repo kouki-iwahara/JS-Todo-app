@@ -8,7 +8,7 @@
   addBtn.addEventListener('click', () => {
     addTodo();
   })
-  // inputに入力された内容のtodoを作成
+  // inputに入力された内容のtodoを追加する
   const addTodo = () => {
     const content = formSectionInput.value;
     const stateBtn = document.createElement('button');
@@ -22,6 +22,33 @@
       deleteBtn
     }
     todos.push(todo);
+    showTodos()
     formSectionInput.value = '';
+  }
+
+  // 追加されたtodoを表示する
+  const showTodos = () => {
+    // テーブルの中身をリセット
+    while(tableBody.firstChild) {
+      tableBody.textContent = '';
+    }
+    todos.forEach((todo, index) => {
+      const tr = document.createElement('tr');
+      const id = document.createElement('td');
+      const content = document.createElement('td');
+      const state = document.createElement('td');
+      const remove = document.createElement('td');
+      todo.id = index + 1;
+      id.textContent = todo.id
+      content.textContent = todo.content;
+      tableBody.appendChild(tr);
+      tr.appendChild(id);
+      tr.appendChild(content);
+      tr.appendChild(state);
+      tr.appendChild(remove);
+      state.appendChild(todo.stateBtn);
+      remove.appendChild(todo.deleteBtn);
+    });
+    console.log(todos);
   }
 }());
