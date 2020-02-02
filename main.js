@@ -10,7 +10,7 @@
   addBtn.addEventListener('click', () => {
     addTodo();
   });
-  // ラジオボタンをクリックが切り替わった時の挙動
+  // ラジオボタンのチェックが切り替わった時の挙動
   radioFormSection.addEventListener('change', (event) => {
     changeTodoDisplay(event.target.value);
   });
@@ -58,19 +58,19 @@
     };
     todos.forEach((todo) => {
       const tr = document.createElement('tr');
-      const id = document.createElement('td');
-      const content = document.createElement('td');
-      const state = document.createElement('td');
-      const remove = document.createElement('td');
-      id.textContent = todo.id
-      content.textContent = todo.content;
+      const idElem = document.createElement('td');
+      const contentElem = document.createElement('td');
+      const stateBtnElem = document.createElement('td');
+      const deleteBtnElem = document.createElement('td');
+      idElem.textContent = todo.id
+      contentElem.textContent = todo.content;
+      stateBtnElem.appendChild(todo.stateBtn);
+      deleteBtnElem.appendChild(todo.deleteBtn);
       tableBody.appendChild(tr);
-      tr.appendChild(id);
-      tr.appendChild(content);
-      tr.appendChild(state);
-      tr.appendChild(remove);
-      state.appendChild(todo.stateBtn);
-      remove.appendChild(todo.deleteBtn);
+      tr.appendChild(idElem);
+      tr.appendChild(contentElem);
+      tr.appendChild(stateBtnElem);
+      tr.appendChild(deleteBtnElem);
     });
   };
   // 状態ボタン「作業中⇄完了」の切り替え
@@ -89,16 +89,19 @@
   };
   // ラジオボタンでtodo表示の切り替え
   const changeTodoDisplay = (radioBtnState) => {
+    // 「すべて」の場合
     if(radioBtnState === 'all') {
       showTodos(todos);
     };
+    // 「作業中」の場合
     if(radioBtnState === 'work') {
-      const filterTodos = todos.filter((todo) => todo.stateBtn.textContent === '作業中');
-      showTodos(filterTodos);
+      const filteredTodos = todos.filter((todo) => todo.stateBtn.textContent === '作業中');
+      showTodos(filteredTodos);
     };
+    // 「完了」の場合
     if(radioBtnState === 'comp') {
-      const filterTodos = todos.filter((todo) => todo.stateBtn.textContent === '完了');
-      showTodos(filterTodos);
+      const filteredTodos = todos.filter((todo) => todo.stateBtn.textContent === '完了');
+      showTodos(filteredTodos);
     };
   };
   //: todoを削除する
