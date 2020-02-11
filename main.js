@@ -23,11 +23,13 @@
     }
     const stateBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
-    stateBtn.textContent = '作業中';
+    stateBtn.classList.add('state-btn');
+    deleteBtn.classList.add('danger-btn');
+    stateBtn.textContent = 'working';
     stateBtn.addEventListener('click', () => {
       switchState(stateBtn);
     });
-    deleteBtn.textContent = '削除';
+    deleteBtn.textContent = 'remove';
     const todo = {
       id: '',
       content,
@@ -73,12 +75,12 @@
       tr.appendChild(deleteBtnElem);
     });
   };
-  // 状態ボタン「作業中⇄完了」の切り替え
+  // 状態ボタン「working⇄completed」の切り替え
   const switchState = (stateBtn) => {
-    if(stateBtn.textContent === '作業中') {
-      stateBtn.textContent = '完了';
+    if(stateBtn.textContent === 'working') {
+      stateBtn.textContent = 'completed';
     } else {
-      stateBtn.textContent = '作業中';
+      stateBtn.textContent = 'working';
     };
     // ラジオボタンの状態と状態切り替えボタンが一致するtodoを表示
     for(let i = 0; i < radioFormSection.children.length; i++) {
@@ -93,18 +95,18 @@
     if(radioBtnState === 'all') {
       showTodos(todos);
     };
-    // 「作業中」の場合
+    // 「working」の場合
     if(radioBtnState === 'work') {
-      const filteredTodos = todos.filter((todo) => todo.stateBtn.textContent === '作業中');
+      const filteredTodos = todos.filter((todo) => todo.stateBtn.textContent === 'working');
       showTodos(filteredTodos);
     };
-    // 「完了」の場合
+    // 「completed」の場合
     if(radioBtnState === 'comp') {
-      const filteredTodos = todos.filter((todo) => todo.stateBtn.textContent === '完了');
+      const filteredTodos = todos.filter((todo) => todo.stateBtn.textContent === 'completed');
       showTodos(filteredTodos);
     };
   };
-  //: todoを削除する
+  //: todoをremoveする
   const deleteTodo = (index) => {
     todos.splice(index, 1);
     todos.forEach((todo, index) => todo.id = index + 1);
